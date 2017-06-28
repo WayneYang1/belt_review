@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Add Book and Review</title>
+</head>
+<body>
+	<p><a href="{% url 'belt:books' %}">Home</a></p>
+	<p><a href="{% url 'belt:logout' %}">Logout</a></p>
+	{% if messages %}
+      {% for error in messages %}
+        <p>{{ error }}</p>
+      {% endfor %}
+    {% endif %}
+	<h2>Add a New Book Title and a Review:</h2>
+	<form action='/post_book' method='post'>
+		{% csrf_token %}
+		<p><b>Book Title: </b><input type='text' name='title'></p>
+		<p><b>Author:</b></p>
+		<p>Choose from the list:
+			<select>
+				{% for author in authors %}
+					<option value='{{author.name}}'>{{author.name}}</option>
+				{% endfor %}
+			</select>
+		</p>
+		<p>Or add a new author: <input type='text' name='author'></p>
+		<p><b>Review:</b> <textarea name='content' rows="8" cols="80"></textarea></p>
+		<p><b>Rating</b> <input type='number' name='rating'></p>
+		<p><input type='submit' value='Add a Book and Review'></p>
+	</form>
+</body>
+</html>

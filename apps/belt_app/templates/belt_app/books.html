@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Books Home</title>
+</head>
+<body>
+	<h3>Welcome, {{ user.first_name }}!</h3>
+	<p><a href="{% url 'belt:add' %}">Add Book and Review</a></p>
+	<p><a href="{% url 'belt:logout' %}">Logout</a></p>
+	<p>Recent Book Reviews:</p>
+	{% for review in recent_reviews %}
+		<p><a href="{% url 'belt:book_id' review.book.id %}">{{ review.book.title }}</a></p>
+		<p>Rating : {{ review.rating }}</p>
+		<p><a href="{% url 'belt:users' review.user.id %}">{{ review.user.first_name }}</a> says: {{review.content}}</p>
+		<p>Posted on {{ review.created_at }}</p><br>
+	{% endfor %}
+	<h3>Other Books with Reviews:</h3>
+	{% for review in other_reviews %}
+		<p><a href="{% url 'belt:book_id' review.book.id %}">{{ review.book.title }}</a></p>
+	{% endfor %}
+</body>
+</html>
